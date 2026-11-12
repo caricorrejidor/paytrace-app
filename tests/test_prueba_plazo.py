@@ -2,15 +2,13 @@
 conjunto de evaluación, para AC-12 y AC-15. Se carga solo en los tests, no en la app."""
 
 from datetime import timedelta
-from pathlib import Path
 
 import pytest
 
 from app.carga import DIRECTORIO_DATOS, cargar_operaciones
 from app.main import obtener_store
 from app.modelos import Estado, Operacion
-
-RUTA_PRUEBA_PLAZO = Path(__file__).parent / "datos" / "prueba_plazo.json"
+from tests.conftest import RUTA_PRUEBA_PLAZO
 
 
 @pytest.fixture

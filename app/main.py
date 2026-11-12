@@ -6,6 +6,7 @@ from fastapi import Depends, FastAPI, HTTPException, status
 from pydantic import BaseModel
 
 from app.carga import crear_store_con_evaluacion
+from app.diagnostico import Aviso, Diagnostico, diagnosticar
 from app.modelos import PATRON_ID_OPERACION, Estado, Operacion
 from app.simulador import Caso, generar
 from app.store import SinIdsLibres, Store
@@ -62,13 +63,29 @@ def listar_operaciones(store: StoreDep) -> list[ResumenOperacion]:
     return [ResumenOperacion(id=op.id, estado=op.estado) for op in store.listar()]
 
 
+def _obtener_operacion(store: Store, id_operacion: str) -> Operacion:
+    """Valida el formato del ID y devuelve la operación (400 o 404 si no se puede)."""
+    if not re.fullmatch(PATRON_ID_OPERACION, id_operacion):
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, MENSAJE_FORMATO_INVALIDO)
+    operacion = store.obtener(id_operacion)
+    if operacion is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, MENSAJE_NO_ENCONTRADA)
+    return operacion
+
+
 @app.get("/operaciones/buscar")
 def buscar_operacion(store: StoreDep, id: str = "") -> Operacion:
     """RF-03 y RF-04: busca una operación por su ID y la devuelve con el trace en orden cronológico."""
-    if not re.fullmatch(PATRON_ID_OPERACION, id):
-        raise HTTPException(status.HTTP_400_BAD_REQUEST, MENSAJE_FORMATO_INVALIDO)
-    operacion = store.obtener(id)
-    if operacion is None:
-        raise HTTPException(status.HTTP_404_NOT_FOUND, MENSAJE_NO_ENCONTRADA)
+    operacion = _obtener_operacion(store, id)
     trace_ordenado = sorted(operacion.trace, key=lambda evento: evento.momento)
     return operacion.model_copy(update={"trace": trace_ordenado})
+
+
+@app.post("/operaciones/{id_operacion}/diagnostico")
+def diagnosticar_operacion(id_operacion: str, store: StoreDep, ahora: AhoraDep) -> Diagnostico | Aviso:
+    """RF-05 a RF-10: diagnostica la operación cuando el analista lo pide.
+
+    "Ahora" es la hora de referencia en las operaciones fijas y la hora del sistema en las generadas.
+    """
+    operacion = _obtener_operacion(store, id_operacion)
+    return diagnosticar(operacion, operacion.hora_referencia or ahora)

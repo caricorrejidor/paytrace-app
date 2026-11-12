@@ -2,11 +2,10 @@ import json
 from pathlib import Path
 
 import pytest
-from fastapi.testclient import TestClient
 from pydantic import ValidationError
 
 from app.carga import RUTA_EVALUACION, cargar_operaciones, crear_store_con_evaluacion
-from app.main import app, obtener_ahora, obtener_store
+from app.main import obtener_store
 from app.modelos import Operacion
 from app.simulador import Caso, generar
 from tests.conftest import AHORA
@@ -84,16 +83,6 @@ def test_la_app_inicia_con_el_conjunto_de_evaluacion_cargado():
     ids = [op.id for op in obtener_store().listar()]
 
     assert ids[:25] == [f"OP-{n:04d}" for n in range(1, 26)]
-
-
-@pytest.fixture
-def cliente_con_evaluacion():
-    """Cliente de la API con un store propio que tiene el conjunto de evaluación cargado."""
-    store = crear_store_con_evaluacion()
-    app.dependency_overrides[obtener_store] = lambda: store
-    app.dependency_overrides[obtener_ahora] = lambda: AHORA
-    yield TestClient(app)
-    app.dependency_overrides.clear()
 
 
 # AC-14 (RF-01) · El ID generado no repite uno existente
