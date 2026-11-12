@@ -42,7 +42,7 @@
 | **Trace** | La lista de eventos de una operación, unificada y en orden |
 | **Caso** | El escenario con el que se generó la operación (tabla de §3). Las reglas **no** conocen el caso: solo ven el trace |
 | **Causa** | Uno de los valores de la columna "Causa" de la tabla de casos, con ese nombre exacto, o "no concluyente" |
-| **Diagnóstico** | Lo que devuelve PayTrace cuando el analista lo pide. Tiene 3 campos: causa, eventos citados (por ID de evento; vacío si la causa es "no concluyente") y recomendación |
+| **Diagnóstico** | Lo que devuelve PayTrace cuando el analista lo pide. Tiene 3 campos: causa, eventos citados (por ID de evento; vacío si la causa es "no concluyente") y recomendación. Si la operación está pendiente y todavía no pasó el plazo de espera, en lugar del diagnóstico responde "La operación sigue en curso" |
 | **Conjunto de evaluación** | 25 operaciones fijas: 5 de cada caso de la tabla de §3, salvo el caso OK. Salen de un archivo de datos fijo, con IDs y horarios que no cambian entre corridas. No se generan con RF-01 |
 | **Plazo de espera** | 10 minutos sin eventos nuevos desde el último evento del trace. Una transferencia inmediata se resuelve en segundos: si pasó ese tiempo sin eventos, la operación se trabó |
 
@@ -210,7 +210,7 @@ Característica: PayTrace, criterios de aceptación del MVP
     Y no hace la búsqueda
 
   Escenario: AC-12 (RF-08) · Operación pendiente dentro del plazo de espera
-    Dado una operación pendiente cuyo último evento fue hace 2 minutos
+    Dado una operación pendiente de un archivo de prueba fijo, cuyo último evento es 2 minutos anterior a la hora de referencia de la prueba
     Cuando el analista pide el diagnóstico
     Entonces el sistema muestra "La operación sigue en curso"
     Y no se genera ningún diagnóstico
@@ -242,7 +242,7 @@ Característica: PayTrace, criterios de aceptación del MVP
 | Un trace real no encaja en ninguna regla | PayTrace responde "no concluyente" y no inventa una causa (RF-08 · AC-09). Para esos casos, a futuro, un agente de IA |
 | Se usa mal un código ISO 20022 | El simulador usa solo 3 códigos de motivo, revisados el 04/11 contra la guía de códigos de motivo del European Payments Council: AM04 (fondos insuficientes), AC01 (la cuenta no existe en el banco destino) y AB05 (timeout del banco destino). Cualquier otro código (por ejemplo, `AM02` o `AB06`) queda fuera del MVP (ver §6) |
 | Los datos simulados no se parecen a la realidad | Los casos siguen la lógica de ISO 20022. Los ~20 min de hoy son una estimación de referencia, no una medición: OBJ-1 se cumple midiendo PayTrace (≤ 5 min), sin depender de esa cifra |
-| El proyecto queda demasiado grande para el curso | MVP acotado: 9 RF, 3 casos con fallo y fuera de alcance explícito |
+| El proyecto queda demasiado grande para el curso | MVP acotado: 9 RF, 4 casos con fallo y 3 causas, y fuera de alcance explícito |
 
 ### Dependencias
 | Dependencia | Para qué |
