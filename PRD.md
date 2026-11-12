@@ -37,14 +37,16 @@
 ### Términos
 | Término | Qué significa en este PRD |
 |---|---|
-| **Operación** | Una transferencia simulada, con un ID único (ej.: OP-0001), un estado y un trace. Estados: **OK** (se acreditó en destino), **fallida** (la operación se rechazó: no se acredita en destino) o **pendiente** (todavía no hay un resultado final) |
+| **Operación** | Una transferencia simulada, con un ID único, un estado y un trace. El ID tiene el formato `OP-` seguido de 4 dígitos, en mayúscula (ej.: OP-0001); cualquier otra forma, como `op1` u `op-0001`, es un formato inválido. Las operaciones generadas con RF-01 toman el siguiente ID libre, así no repiten un ID existente. Ninguna operación usa IDs `OP-9xxx`: AC-04 usa OP-9999 como ID inexistente. Estados: **OK** (se acreditó en destino), **fallida** (la operación se rechazó: no se acredita en destino) o **pendiente** (todavía no hay un resultado final) |
 | **Evento** | Un hecho del trace. Tiene ID de evento, momento, tipo, quién lo emite (origen, proveedor o banco destino) y, si es un rechazo, un código de motivo ISO 20022 |
 | **Trace** | La lista de eventos de una operación, unificada y en orden |
 | **Caso** | El escenario con el que se generó la operación (tabla de §3). Las reglas **no** conocen el caso: solo ven el trace |
 | **Causa** | Uno de los valores de la columna "Causa" de la tabla de casos, con ese nombre exacto, o "no concluyente" |
 | **Diagnóstico** | Lo que devuelve PayTrace cuando el analista lo pide. Tiene 3 campos: causa, eventos citados (por ID de evento; vacío si la causa es "no concluyente") y recomendación. Si la operación está pendiente y todavía no pasó el plazo de espera, en lugar del diagnóstico responde "La operación sigue en curso" |
-| **Conjunto de evaluación** | 25 operaciones fijas: 5 de cada caso de la tabla de §3, salvo el caso OK. Salen de un archivo de datos fijo, con IDs y horarios que no cambian entre corridas. No se generan con RF-01 |
-| **Plazo de espera** | 10 minutos sin eventos nuevos desde el último evento del trace. Una transferencia inmediata se resuelve en segundos: si pasó ese tiempo sin eventos, la operación se trabó |
+| **Conjunto de evaluación** | 25 operaciones fijas: 5 de cada caso de la tabla de §3, salvo el caso OK. Salen de un archivo de datos fijo, con IDs y horarios que no cambian entre corridas. No se generan con RF-01, pero conviven en la misma app con las operaciones generadas |
+| **Plazo de espera** | Más de 10 minutos sin eventos nuevos desde el último evento del trace. Con exactamente 10 minutos, la operación sigue en curso. Una transferencia inmediata se resuelve en segundos: si pasan más de 10 minutos sin eventos, la operación se trabó |
+| **Hora de referencia** | La hora que se usa como "ahora" para calcular el plazo de espera cuando los datos son fijos |
+| **Archivo de prueba de plazo** | Un archivo de datos fijo, aparte del conjunto de evaluación, con 2 operaciones pendientes: una cuyo último evento es 2 minutos anterior a su hora de referencia y otra cuyo último evento es exactamente 10 minutos anterior a su hora de referencia. Se usa solo en AC-12 y AC-15 |
 
 ---
 
@@ -72,6 +74,7 @@
 | RF-07 | Mostrar la recomendación de la tabla de casos que corresponde al trace | Imprescindible | OBJ-1 |
 | RF-08 | Responder "no concluyente", sin eventos citados, cuando el trace no prueba ninguna causa y ya pasó el plazo de espera | Imprescindible | OBJ-3 |
 | RF-09 | Avisar que no hay fallo cuando se pide el diagnóstico de una operación OK | Imprescindible | Principio de producto (no diagnosticar sin fallo) · se verifica con AC-10, fuera del conjunto de evaluación |
+| RF-10 | Responder "La operación sigue en curso", sin diagnóstico, cuando la operación está pendiente y todavía no pasó el plazo de espera | Imprescindible | Principio de producto (no inventar) · se verifica con AC-12 y AC-15, fuera del conjunto de evaluación |
 
 ### Casos que se pueden generar (RF-01)
 
@@ -91,8 +94,8 @@
 | 1 | El analista genera operaciones de distintos casos (RF-01) |
 | 2 | Busca una operación por su ID (RF-03) o la elige de la lista (RF-02) |
 | 3 | Ve su trace en orden (RF-04) |
-| 4 | Pide el diagnóstico. No es automático. Si la operación es OK, el sistema avisa que no hay fallo para investigar (RF-09) |
-| 5 | Si la operación es fallida o pendiente, el analista ve la causa o el resultado "no concluyente", la evidencia cuando corresponda y la recomendación (RF-05 a RF-08) |
+| 4 | Pide el diagnóstico. No es automático. Si la operación es OK, el sistema avisa que no hay fallo para investigar (RF-09). Si está pendiente y todavía no pasó el plazo de espera, avisa que sigue en curso (RF-10) |
+| 5 | Si la operación es fallida, o pendiente con el plazo de espera vencido, el analista ve la causa o el resultado "no concluyente", la evidencia cuando corresponda y la recomendación (RF-05 a RF-08) |
 
 ---
 
@@ -201,19 +204,42 @@ Característica: PayTrace, criterios de aceptación del MVP
     Dado que se generó una operación del caso "OK"
     Cuando el analista pide el diagnóstico
     Entonces el sistema muestra "La operación no tiene un fallo para investigar"
-    Y no se genera ningún diagnóstico
+    Y no se muestra causa, eventos citados ni recomendación
 
-  Escenario: AC-11 (RF-03) · Buscar un ID vacío o mal escrito
-    Dado que el analista escribe "op1" o deja el ID vacío
+  Esquema del escenario: AC-11 (RF-03) · Buscar un ID vacío o mal escrito
+    Dado que el analista escribe "<id>" en la búsqueda
     Cuando busca
     Entonces el sistema muestra "Ingresá un ID con formato OP-0000"
-    Y no hace la búsqueda
+    Y no muestra ninguna operación ni "Operación no encontrada"
 
-  Escenario: AC-12 (RF-08) · Operación pendiente dentro del plazo de espera
-    Dado una operación pendiente de un archivo de prueba fijo, cuyo último evento es 2 minutos anterior a la hora de referencia de la prueba
+    Ejemplos:
+      | id      |
+      | op1     |
+      | op-0001 |
+      |         |
+
+  Escenario: AC-12 (RF-10) · Operación pendiente dentro del plazo de espera
+    Dado la operación pendiente del archivo de prueba de plazo cuyo último evento es 2 minutos anterior a su hora de referencia
     Cuando el analista pide el diagnóstico
     Entonces el sistema muestra "La operación sigue en curso"
-    Y no se genera ningún diagnóstico
+    Y no se muestra causa, eventos citados ni recomendación
+
+  Escenario: AC-13 (RF-01) · El trace incompleto se genera con el plazo de espera vencido
+    Dado que el analista elige el caso "trace incompleto"
+    Cuando genera la operación
+    Entonces el último evento del trace es más de 10 minutos anterior al momento de la generación
+
+  Escenario: AC-14 (RF-01) · El ID generado no repite uno existente
+    Dado que en la app están cargadas las operaciones del conjunto de evaluación
+    Cuando el analista genera una operación
+    Entonces su ID no coincide con el de ninguna operación existente
+    Y no empieza con "OP-9"
+
+  Escenario: AC-15 (RF-10) · Operación pendiente justo en el límite del plazo de espera
+    Dado la operación pendiente del archivo de prueba de plazo cuyo último evento es exactamente 10 minutos anterior a su hora de referencia
+    Cuando el analista pide el diagnóstico
+    Entonces el sistema muestra "La operación sigue en curso"
+    Y no se muestra causa, eventos citados ni recomendación
 ```
 
 ---
@@ -228,7 +254,8 @@ Característica: PayTrace, criterios de aceptación del MVP
 | Corregir o reintentar la operación: PayTrace solo diagnostica |
 | Agente de IA para los casos que las reglas no cubren: queda para después del MVP |
 | Login, roles y permisos |
-| Paginación de la lista de operaciones (en el MVP hay unas 25) |
+| Separar operaciones por usuario: todos los analistas ven todas las operaciones simuladas |
+| Paginación de la lista de operaciones (en el MVP: las 25 del conjunto de evaluación más las que genere el analista) |
 | Pagos con tarjeta u otros medios: solo transferencias |
 | Otros casos de fallo (importe no permitido `AM02`, duplicados, antifraude, etc.) |
 
@@ -239,10 +266,10 @@ Característica: PayTrace, criterios de aceptación del MVP
 ### Riesgos
 | Riesgo | Mitigación |
 |---|---|
-| Un trace real no encaja en ninguna regla | PayTrace responde "no concluyente" y no inventa una causa (RF-08 · AC-09). Para esos casos, a futuro, un agente de IA |
+| Un trace real no encaja en ninguna regla | PayTrace responde "no concluyente" y no inventa una causa (RF-08 · AC-09). El MVP no genera operaciones fallidas sin regla: cada caso fallido de la tabla de §3 tiene su evento clave. Para los traces que no encajen en ninguna regla, a futuro, un agente de IA |
 | Se usa mal un código ISO 20022 | El simulador usa solo 3 códigos de motivo, revisados el 04/11 contra la guía de códigos de motivo del European Payments Council: AM04 (fondos insuficientes), AC01 (la cuenta no existe en el banco destino) y AB05 (timeout del banco destino). Cualquier otro código (por ejemplo, `AM02` o `AB06`) queda fuera del MVP (ver §6) |
 | Los datos simulados no se parecen a la realidad | Los casos siguen la lógica de ISO 20022. Los ~20 min de hoy son una estimación de referencia, no una medición: OBJ-1 se cumple midiendo PayTrace (≤ 5 min), sin depender de esa cifra |
-| El proyecto queda demasiado grande para el curso | MVP acotado: 9 RF, 4 casos con fallo y 3 causas, y fuera de alcance explícito |
+| El proyecto queda demasiado grande para el curso | MVP acotado: 10 RF, 4 casos con fallo y 3 causas, y fuera de alcance explícito |
 
 ### Dependencias
 | Dependencia | Para qué |
