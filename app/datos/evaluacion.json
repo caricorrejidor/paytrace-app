@@ -1,0 +1,732 @@
+[
+  {
+    "id": "OP-0001",
+    "caso": "fondos insuficientes",
+    "estado": "fallida",
+    "hora_referencia": "2026-11-02T09:08:02-03:00",
+    "trace": [
+      {
+        "id": "OP-0001-E1",
+        "momento": "2026-11-02T09:03:00-03:00",
+        "tipo": "orden enviada",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0001-E2",
+        "momento": "2026-11-02T09:03:02-03:00",
+        "tipo": "rechazo en origen",
+        "emisor": "origen",
+        "codigo": "AM04"
+      }
+    ]
+  },
+  {
+    "id": "OP-0002",
+    "caso": "fondos insuficientes",
+    "estado": "fallida",
+    "hora_referencia": "2026-11-02T11:15:13-03:00",
+    "trace": [
+      {
+        "id": "OP-0002-E1",
+        "momento": "2026-11-02T11:10:11-03:00",
+        "tipo": "orden enviada",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0002-E2",
+        "momento": "2026-11-02T11:10:13-03:00",
+        "tipo": "rechazo en origen",
+        "emisor": "origen",
+        "codigo": "AM04"
+      }
+    ]
+  },
+  {
+    "id": "OP-0003",
+    "caso": "fondos insuficientes",
+    "estado": "fallida",
+    "hora_referencia": "2026-11-02T13:22:24-03:00",
+    "trace": [
+      {
+        "id": "OP-0003-E1",
+        "momento": "2026-11-02T13:17:22-03:00",
+        "tipo": "orden enviada",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0003-E2",
+        "momento": "2026-11-02T13:17:24-03:00",
+        "tipo": "rechazo en origen",
+        "emisor": "origen",
+        "codigo": "AM04"
+      }
+    ]
+  },
+  {
+    "id": "OP-0004",
+    "caso": "fondos insuficientes",
+    "estado": "fallida",
+    "hora_referencia": "2026-11-02T15:29:35-03:00",
+    "trace": [
+      {
+        "id": "OP-0004-E1",
+        "momento": "2026-11-02T15:24:33-03:00",
+        "tipo": "orden enviada",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0004-E2",
+        "momento": "2026-11-02T15:24:35-03:00",
+        "tipo": "rechazo en origen",
+        "emisor": "origen",
+        "codigo": "AM04"
+      }
+    ]
+  },
+  {
+    "id": "OP-0005",
+    "caso": "fondos insuficientes",
+    "estado": "fallida",
+    "hora_referencia": "2026-11-02T17:36:46-03:00",
+    "trace": [
+      {
+        "id": "OP-0005-E1",
+        "momento": "2026-11-02T17:31:44-03:00",
+        "tipo": "orden enviada",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0005-E2",
+        "momento": "2026-11-02T17:31:46-03:00",
+        "tipo": "rechazo en origen",
+        "emisor": "origen",
+        "codigo": "AM04"
+      }
+    ]
+  },
+  {
+    "id": "OP-0006",
+    "caso": "cuenta incorrecta",
+    "estado": "fallida",
+    "hora_referencia": "2026-11-03T09:08:06-03:00",
+    "trace": [
+      {
+        "id": "OP-0006-E1",
+        "momento": "2026-11-03T09:03:00-03:00",
+        "tipo": "orden enviada",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0006-E2",
+        "momento": "2026-11-03T09:03:02-03:00",
+        "tipo": "débito en origen",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0006-E3",
+        "momento": "2026-11-03T09:03:04-03:00",
+        "tipo": "rechazo del banco destino",
+        "emisor": "banco destino",
+        "codigo": "AC01"
+      },
+      {
+        "id": "OP-0006-E4",
+        "momento": "2026-11-03T09:03:06-03:00",
+        "tipo": "reversa del débito",
+        "emisor": "origen"
+      }
+    ]
+  },
+  {
+    "id": "OP-0007",
+    "caso": "cuenta incorrecta",
+    "estado": "fallida",
+    "hora_referencia": "2026-11-03T11:15:17-03:00",
+    "trace": [
+      {
+        "id": "OP-0007-E1",
+        "momento": "2026-11-03T11:10:11-03:00",
+        "tipo": "orden enviada",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0007-E2",
+        "momento": "2026-11-03T11:10:13-03:00",
+        "tipo": "débito en origen",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0007-E3",
+        "momento": "2026-11-03T11:10:15-03:00",
+        "tipo": "rechazo del banco destino",
+        "emisor": "banco destino",
+        "codigo": "AC01"
+      },
+      {
+        "id": "OP-0007-E4",
+        "momento": "2026-11-03T11:10:17-03:00",
+        "tipo": "reversa del débito",
+        "emisor": "origen"
+      }
+    ]
+  },
+  {
+    "id": "OP-0008",
+    "caso": "cuenta incorrecta",
+    "estado": "fallida",
+    "hora_referencia": "2026-11-03T13:22:28-03:00",
+    "trace": [
+      {
+        "id": "OP-0008-E1",
+        "momento": "2026-11-03T13:17:22-03:00",
+        "tipo": "orden enviada",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0008-E2",
+        "momento": "2026-11-03T13:17:24-03:00",
+        "tipo": "débito en origen",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0008-E3",
+        "momento": "2026-11-03T13:17:26-03:00",
+        "tipo": "rechazo del banco destino",
+        "emisor": "banco destino",
+        "codigo": "AC01"
+      },
+      {
+        "id": "OP-0008-E4",
+        "momento": "2026-11-03T13:17:28-03:00",
+        "tipo": "reversa del débito",
+        "emisor": "origen"
+      }
+    ]
+  },
+  {
+    "id": "OP-0009",
+    "caso": "cuenta incorrecta",
+    "estado": "fallida",
+    "hora_referencia": "2026-11-03T15:29:39-03:00",
+    "trace": [
+      {
+        "id": "OP-0009-E1",
+        "momento": "2026-11-03T15:24:33-03:00",
+        "tipo": "orden enviada",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0009-E2",
+        "momento": "2026-11-03T15:24:35-03:00",
+        "tipo": "débito en origen",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0009-E3",
+        "momento": "2026-11-03T15:24:37-03:00",
+        "tipo": "rechazo del banco destino",
+        "emisor": "banco destino",
+        "codigo": "AC01"
+      },
+      {
+        "id": "OP-0009-E4",
+        "momento": "2026-11-03T15:24:39-03:00",
+        "tipo": "reversa del débito",
+        "emisor": "origen"
+      }
+    ]
+  },
+  {
+    "id": "OP-0010",
+    "caso": "cuenta incorrecta",
+    "estado": "fallida",
+    "hora_referencia": "2026-11-03T17:36:50-03:00",
+    "trace": [
+      {
+        "id": "OP-0010-E1",
+        "momento": "2026-11-03T17:31:44-03:00",
+        "tipo": "orden enviada",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0010-E2",
+        "momento": "2026-11-03T17:31:46-03:00",
+        "tipo": "débito en origen",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0010-E3",
+        "momento": "2026-11-03T17:31:48-03:00",
+        "tipo": "rechazo del banco destino",
+        "emisor": "banco destino",
+        "codigo": "AC01"
+      },
+      {
+        "id": "OP-0010-E4",
+        "momento": "2026-11-03T17:31:50-03:00",
+        "tipo": "reversa del débito",
+        "emisor": "origen"
+      }
+    ]
+  },
+  {
+    "id": "OP-0011",
+    "caso": "timeout con reversa",
+    "estado": "fallida",
+    "hora_referencia": "2026-11-04T09:08:08-03:00",
+    "trace": [
+      {
+        "id": "OP-0011-E1",
+        "momento": "2026-11-04T09:03:00-03:00",
+        "tipo": "orden enviada",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0011-E2",
+        "momento": "2026-11-04T09:03:02-03:00",
+        "tipo": "débito en origen",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0011-E3",
+        "momento": "2026-11-04T09:03:04-03:00",
+        "tipo": "envío al proveedor",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0011-E4",
+        "momento": "2026-11-04T09:03:06-03:00",
+        "tipo": "rechazo por timeout",
+        "emisor": "proveedor",
+        "codigo": "AB05"
+      },
+      {
+        "id": "OP-0011-E5",
+        "momento": "2026-11-04T09:03:08-03:00",
+        "tipo": "reversa del débito",
+        "emisor": "origen"
+      }
+    ]
+  },
+  {
+    "id": "OP-0012",
+    "caso": "timeout con reversa",
+    "estado": "fallida",
+    "hora_referencia": "2026-11-04T11:15:19-03:00",
+    "trace": [
+      {
+        "id": "OP-0012-E1",
+        "momento": "2026-11-04T11:10:11-03:00",
+        "tipo": "orden enviada",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0012-E2",
+        "momento": "2026-11-04T11:10:13-03:00",
+        "tipo": "débito en origen",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0012-E3",
+        "momento": "2026-11-04T11:10:15-03:00",
+        "tipo": "envío al proveedor",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0012-E4",
+        "momento": "2026-11-04T11:10:17-03:00",
+        "tipo": "rechazo por timeout",
+        "emisor": "proveedor",
+        "codigo": "AB05"
+      },
+      {
+        "id": "OP-0012-E5",
+        "momento": "2026-11-04T11:10:19-03:00",
+        "tipo": "reversa del débito",
+        "emisor": "origen"
+      }
+    ]
+  },
+  {
+    "id": "OP-0013",
+    "caso": "timeout con reversa",
+    "estado": "fallida",
+    "hora_referencia": "2026-11-04T13:22:30-03:00",
+    "trace": [
+      {
+        "id": "OP-0013-E1",
+        "momento": "2026-11-04T13:17:22-03:00",
+        "tipo": "orden enviada",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0013-E2",
+        "momento": "2026-11-04T13:17:24-03:00",
+        "tipo": "débito en origen",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0013-E3",
+        "momento": "2026-11-04T13:17:26-03:00",
+        "tipo": "envío al proveedor",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0013-E4",
+        "momento": "2026-11-04T13:17:28-03:00",
+        "tipo": "rechazo por timeout",
+        "emisor": "proveedor",
+        "codigo": "AB05"
+      },
+      {
+        "id": "OP-0013-E5",
+        "momento": "2026-11-04T13:17:30-03:00",
+        "tipo": "reversa del débito",
+        "emisor": "origen"
+      }
+    ]
+  },
+  {
+    "id": "OP-0014",
+    "caso": "timeout con reversa",
+    "estado": "fallida",
+    "hora_referencia": "2026-11-04T15:29:41-03:00",
+    "trace": [
+      {
+        "id": "OP-0014-E1",
+        "momento": "2026-11-04T15:24:33-03:00",
+        "tipo": "orden enviada",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0014-E2",
+        "momento": "2026-11-04T15:24:35-03:00",
+        "tipo": "débito en origen",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0014-E3",
+        "momento": "2026-11-04T15:24:37-03:00",
+        "tipo": "envío al proveedor",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0014-E4",
+        "momento": "2026-11-04T15:24:39-03:00",
+        "tipo": "rechazo por timeout",
+        "emisor": "proveedor",
+        "codigo": "AB05"
+      },
+      {
+        "id": "OP-0014-E5",
+        "momento": "2026-11-04T15:24:41-03:00",
+        "tipo": "reversa del débito",
+        "emisor": "origen"
+      }
+    ]
+  },
+  {
+    "id": "OP-0015",
+    "caso": "timeout con reversa",
+    "estado": "fallida",
+    "hora_referencia": "2026-11-04T17:36:52-03:00",
+    "trace": [
+      {
+        "id": "OP-0015-E1",
+        "momento": "2026-11-04T17:31:44-03:00",
+        "tipo": "orden enviada",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0015-E2",
+        "momento": "2026-11-04T17:31:46-03:00",
+        "tipo": "débito en origen",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0015-E3",
+        "momento": "2026-11-04T17:31:48-03:00",
+        "tipo": "envío al proveedor",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0015-E4",
+        "momento": "2026-11-04T17:31:50-03:00",
+        "tipo": "rechazo por timeout",
+        "emisor": "proveedor",
+        "codigo": "AB05"
+      },
+      {
+        "id": "OP-0015-E5",
+        "momento": "2026-11-04T17:31:52-03:00",
+        "tipo": "reversa del débito",
+        "emisor": "origen"
+      }
+    ]
+  },
+  {
+    "id": "OP-0016",
+    "caso": "timeout sin reversa",
+    "estado": "fallida",
+    "hora_referencia": "2026-11-05T09:08:06-03:00",
+    "trace": [
+      {
+        "id": "OP-0016-E1",
+        "momento": "2026-11-05T09:03:00-03:00",
+        "tipo": "orden enviada",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0016-E2",
+        "momento": "2026-11-05T09:03:02-03:00",
+        "tipo": "débito en origen",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0016-E3",
+        "momento": "2026-11-05T09:03:04-03:00",
+        "tipo": "envío al proveedor",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0016-E4",
+        "momento": "2026-11-05T09:03:06-03:00",
+        "tipo": "rechazo por timeout",
+        "emisor": "proveedor",
+        "codigo": "AB05"
+      }
+    ]
+  },
+  {
+    "id": "OP-0017",
+    "caso": "timeout sin reversa",
+    "estado": "fallida",
+    "hora_referencia": "2026-11-05T11:15:17-03:00",
+    "trace": [
+      {
+        "id": "OP-0017-E1",
+        "momento": "2026-11-05T11:10:11-03:00",
+        "tipo": "orden enviada",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0017-E2",
+        "momento": "2026-11-05T11:10:13-03:00",
+        "tipo": "débito en origen",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0017-E3",
+        "momento": "2026-11-05T11:10:15-03:00",
+        "tipo": "envío al proveedor",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0017-E4",
+        "momento": "2026-11-05T11:10:17-03:00",
+        "tipo": "rechazo por timeout",
+        "emisor": "proveedor",
+        "codigo": "AB05"
+      }
+    ]
+  },
+  {
+    "id": "OP-0018",
+    "caso": "timeout sin reversa",
+    "estado": "fallida",
+    "hora_referencia": "2026-11-05T13:22:28-03:00",
+    "trace": [
+      {
+        "id": "OP-0018-E1",
+        "momento": "2026-11-05T13:17:22-03:00",
+        "tipo": "orden enviada",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0018-E2",
+        "momento": "2026-11-05T13:17:24-03:00",
+        "tipo": "débito en origen",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0018-E3",
+        "momento": "2026-11-05T13:17:26-03:00",
+        "tipo": "envío al proveedor",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0018-E4",
+        "momento": "2026-11-05T13:17:28-03:00",
+        "tipo": "rechazo por timeout",
+        "emisor": "proveedor",
+        "codigo": "AB05"
+      }
+    ]
+  },
+  {
+    "id": "OP-0019",
+    "caso": "timeout sin reversa",
+    "estado": "fallida",
+    "hora_referencia": "2026-11-05T15:29:39-03:00",
+    "trace": [
+      {
+        "id": "OP-0019-E1",
+        "momento": "2026-11-05T15:24:33-03:00",
+        "tipo": "orden enviada",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0019-E2",
+        "momento": "2026-11-05T15:24:35-03:00",
+        "tipo": "débito en origen",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0019-E3",
+        "momento": "2026-11-05T15:24:37-03:00",
+        "tipo": "envío al proveedor",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0019-E4",
+        "momento": "2026-11-05T15:24:39-03:00",
+        "tipo": "rechazo por timeout",
+        "emisor": "proveedor",
+        "codigo": "AB05"
+      }
+    ]
+  },
+  {
+    "id": "OP-0020",
+    "caso": "timeout sin reversa",
+    "estado": "fallida",
+    "hora_referencia": "2026-11-05T17:36:50-03:00",
+    "trace": [
+      {
+        "id": "OP-0020-E1",
+        "momento": "2026-11-05T17:31:44-03:00",
+        "tipo": "orden enviada",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0020-E2",
+        "momento": "2026-11-05T17:31:46-03:00",
+        "tipo": "débito en origen",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0020-E3",
+        "momento": "2026-11-05T17:31:48-03:00",
+        "tipo": "envío al proveedor",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0020-E4",
+        "momento": "2026-11-05T17:31:50-03:00",
+        "tipo": "rechazo por timeout",
+        "emisor": "proveedor",
+        "codigo": "AB05"
+      }
+    ]
+  },
+  {
+    "id": "OP-0021",
+    "caso": "trace incompleto",
+    "estado": "pendiente",
+    "hora_referencia": "2026-11-06T09:14:02-03:00",
+    "trace": [
+      {
+        "id": "OP-0021-E1",
+        "momento": "2026-11-06T09:03:00-03:00",
+        "tipo": "orden enviada",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0021-E2",
+        "momento": "2026-11-06T09:03:02-03:00",
+        "tipo": "débito en origen",
+        "emisor": "origen"
+      }
+    ]
+  },
+  {
+    "id": "OP-0022",
+    "caso": "trace incompleto",
+    "estado": "pendiente",
+    "hora_referencia": "2026-11-06T11:25:13-03:00",
+    "trace": [
+      {
+        "id": "OP-0022-E1",
+        "momento": "2026-11-06T11:10:11-03:00",
+        "tipo": "orden enviada",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0022-E2",
+        "momento": "2026-11-06T11:10:13-03:00",
+        "tipo": "débito en origen",
+        "emisor": "origen"
+      }
+    ]
+  },
+  {
+    "id": "OP-0023",
+    "caso": "trace incompleto",
+    "estado": "pendiente",
+    "hora_referencia": "2026-11-06T13:47:24-03:00",
+    "trace": [
+      {
+        "id": "OP-0023-E1",
+        "momento": "2026-11-06T13:17:22-03:00",
+        "tipo": "orden enviada",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0023-E2",
+        "momento": "2026-11-06T13:17:24-03:00",
+        "tipo": "débito en origen",
+        "emisor": "origen"
+      }
+    ]
+  },
+  {
+    "id": "OP-0024",
+    "caso": "trace incompleto",
+    "estado": "pendiente",
+    "hora_referencia": "2026-11-06T16:24:35-03:00",
+    "trace": [
+      {
+        "id": "OP-0024-E1",
+        "momento": "2026-11-06T15:24:33-03:00",
+        "tipo": "orden enviada",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0024-E2",
+        "momento": "2026-11-06T15:24:35-03:00",
+        "tipo": "débito en origen",
+        "emisor": "origen"
+      }
+    ]
+  },
+  {
+    "id": "OP-0025",
+    "caso": "trace incompleto",
+    "estado": "pendiente",
+    "hora_referencia": "2026-11-06T21:31:46-03:00",
+    "trace": [
+      {
+        "id": "OP-0025-E1",
+        "momento": "2026-11-06T17:31:44-03:00",
+        "tipo": "orden enviada",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0025-E2",
+        "momento": "2026-11-06T17:31:46-03:00",
+        "tipo": "débito en origen",
+        "emisor": "origen"
+      }
+    ]
+  }
+]

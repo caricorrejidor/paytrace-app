@@ -5,6 +5,7 @@ from typing import Annotated
 from fastapi import Depends, FastAPI, HTTPException, status
 from pydantic import BaseModel
 
+from app.carga import crear_store_con_evaluacion
 from app.modelos import PATRON_ID_OPERACION, Estado, Operacion
 from app.simulador import Caso, generar
 from app.store import SinIdsLibres, Store
@@ -14,7 +15,9 @@ app = FastAPI(title="PayTrace")
 MENSAJE_FORMATO_INVALIDO = "Ingresá un ID con formato OP-0000"
 MENSAJE_NO_ENCONTRADA = "Operación no encontrada"
 
-_store = Store()
+# Al iniciar, la app ya tiene el conjunto de evaluación (OP-0001 a OP-0025);
+# las operaciones generadas siguen desde OP-0026 (AC-14).
+_store = crear_store_con_evaluacion()
 
 
 def obtener_store() -> Store:

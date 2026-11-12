@@ -1,0 +1,40 @@
+[
+  {
+    "id": "OP-0101",
+    "estado": "pendiente",
+    "hora_referencia": "2026-11-07T10:02:02-03:00",
+    "trace": [
+      {
+        "id": "OP-0101-E1",
+        "momento": "2026-11-07T10:00:00-03:00",
+        "tipo": "orden enviada",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0101-E2",
+        "momento": "2026-11-07T10:00:02-03:00",
+        "tipo": "débito en origen",
+        "emisor": "origen"
+      }
+    ]
+  },
+  {
+    "id": "OP-0102",
+    "estado": "pendiente",
+    "hora_referencia": "2026-11-07T11:10:02-03:00",
+    "trace": [
+      {
+        "id": "OP-0102-E1",
+        "momento": "2026-11-07T11:00:00-03:00",
+        "tipo": "orden enviada",
+        "emisor": "origen"
+      },
+      {
+        "id": "OP-0102-E2",
+        "momento": "2026-11-07T11:00:02-03:00",
+        "tipo": "débito en origen",
+        "emisor": "origen"
+      }
+    ]
+  }
+]

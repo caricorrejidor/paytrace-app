@@ -1,6 +1,6 @@
 from enum import StrEnum
 
-from pydantic import AwareDatetime, BaseModel, Field, model_validator
+from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, model_validator
 
 # PRD §1: "OP-" seguido de 4 dígitos, en mayúscula (ej.: OP-0001).
 PATRON_ID_OPERACION = r"^OP-[0-9]{4}$"
@@ -48,6 +48,9 @@ TIPOS_RECHAZO = {
 
 
 class Evento(BaseModel):
+    # Un campo desconocido (ej.: mal escrito en un archivo de datos) es un error, no se ignora.
+    model_config = ConfigDict(extra="forbid")
+
     id: str = Field(pattern=PATRON_ID_EVENTO)
     momento: AwareDatetime
     tipo: TipoEvento
@@ -65,6 +68,11 @@ class Evento(BaseModel):
 
 
 class Operacion(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
     id: str = Field(pattern=PATRON_ID_OPERACION)
     estado: Estado
     trace: list[Evento]
+    # "Ahora" fijo para calcular el plazo de espera en los datos fijos (PRD §1).
+    # None en las operaciones generadas: para ellas "ahora" es la hora del sistema.
+    hora_referencia: AwareDatetime | None = None

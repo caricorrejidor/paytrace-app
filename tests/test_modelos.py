@@ -69,6 +69,15 @@ def test_un_id_de_evento_mal_escrito_es_invalido(id_evento):
         )
 
 
+def test_la_hora_de_referencia_es_none_por_defecto():
+    assert Operacion(id="OP-0001", estado=Estado.OK, trace=[]).hora_referencia is None
+
+
+def test_una_hora_de_referencia_sin_zona_horaria_es_invalida():
+    with pytest.raises(ValidationError):
+        Operacion(id="OP-0001", estado=Estado.PENDIENTE, trace=[], hora_referencia=datetime(2026, 11, 4, 10, 0))
+
+
 def test_un_momento_sin_zona_horaria_es_invalido():
     with pytest.raises(ValidationError):
         Evento(
